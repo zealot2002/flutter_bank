@@ -10,43 +10,20 @@ class BuyCoinPage extends StatefulWidget {
   State<BuyCoinPage> createState() => _BuyCoinPageState();
 }
 
-class _BuyCoinPageState extends State<BuyCoinPage> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  late PageController _pageController;
+class _BuyCoinPageState extends State<BuyCoinPage> {
   int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
     SimpleLogger.d('41', 'BuyCoinPage initState called');
-    
-    _tabController = TabController(length: 2, vsync: this);
-    _pageController = PageController();
-    
-    // 监听Tab切换
-    _tabController.addListener(() {
-      if (_tabController.indexIsChanging) {
-        _pageController.animateToPage(
-          _tabController.index,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  void _onPageChanged(int index) {
+  void _switchTab(int index) {
     setState(() {
       _currentIndex = index;
     });
-    _tabController.animateTo(index);
+    SimpleLogger.d('43', 'Tab切换到索引: $index');
   }
 
   @override
@@ -73,12 +50,7 @@ class _BuyCoinPageState extends State<BuyCoinPage> with SingleTickerProviderStat
               // 紧凑型Tab，宽度只容纳文本
               GestureDetector(
                 onTap: () {
-                  _tabController.animateTo(0);
-                  _pageController.animateToPage(
-                    0,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
+                  _switchTab(0);
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -99,12 +71,7 @@ class _BuyCoinPageState extends State<BuyCoinPage> with SingleTickerProviderStat
               const SizedBox(width: 10), // 两个Tab之间的间距
               GestureDetector(
                 onTap: () {
-                  _tabController.animateTo(1);
-                  _pageController.animateToPage(
-                    1,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
+                  _switchTab(1);
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -128,14 +95,7 @@ class _BuyCoinPageState extends State<BuyCoinPage> with SingleTickerProviderStat
         titleSpacing: 0,
         centerTitle: false,
       ),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: _onPageChanged,
-        children: const [
-          OTCMainPage(),
-          P2PMainPage(),
-        ],
-      ),
+      body: _currentIndex == 0 ? const OTCMainPage() : const P2PMainPage(),
     );
   }
 }
