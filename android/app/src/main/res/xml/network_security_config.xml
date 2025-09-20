@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- 允许HTTP和HTTPS请求 -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <!-- 信任系统证书 -->
+            <certificates src="system" />
+            <!-- 信任用户自定义证书（调试时使用） -->
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+    
+    <!-- 针对特定域名的配置 -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">ccapi.api4basic.com</domain>
+        <domain includeSubdomains="true">ccapi.lbk.world</domain>
+        <domain includeSubdomains="true">api.lbank.info</domain>
+        <domain includeSubdomains="true">lbank.info</domain>
+        <domain includeSubdomains="true">lbk.world</domain>
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>

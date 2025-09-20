@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bank/utils/logger.dart';
+import 'package:flutter_bank/models/banner_bean.dart';
 
 /// Banner数据模型
 class BannerVo {

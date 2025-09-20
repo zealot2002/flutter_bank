@@ -4,6 +4,7 @@ import 'package:flutter_bank/pages/mining_page.dart';
 import 'package:flutter_bank/pages/buy_coin_page.dart';
 import 'package:flutter_bank/pages/copy_trade_page.dart';
 import 'package:flutter_bank/pages/welfare_page.dart';
+import 'package:flutter_bank/pages/network_test_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -124,6 +125,14 @@ class _HomePageState extends State<HomePage> {
                   subtitle: '领取福利',
                   color: Colors.red,
                   onTap: () => _navigateToPage(context, const WelfarePage()),
+                ),
+                _buildDiamondCard(
+                  context,
+                  icon: Icons.network_check,
+                  title: '网络测试',
+                  subtitle: '测试API',
+                  color: Colors.teal,
+                  onTap: () => _navigateToPage(context, const NetworkTestPage()),
                 ),
               ],
             ),

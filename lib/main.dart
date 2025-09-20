@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bank/utils/logger.dart';
 import 'package:flutter_bank/pages/main_page.dart';
+import 'package:flutter_bank/network/network_manager.dart';
 
 void main() {
   SimpleLogger.d('1', '=== Flutter Bank App Starting ===');
   SimpleLogger.d('2', 'main() function called');
+  
+  // 初始化网络模块
+  NetworkManager.instance.init(
+    baseUrl: 'https://ccapi.lbk.world', // Debug环境使用测试域名
+    timeout: const Duration(seconds: 30),
+    enableLogging: true,
+  );
   
   try {
     SimpleLogger.d('3', 'About to call runApp()');
