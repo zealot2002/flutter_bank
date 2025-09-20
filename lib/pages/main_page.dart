@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bank/utils/logger.dart';
 import 'package:flutter_bank/pages/home_page.dart';
 import 'package:flutter_bank/pages/market_page.dart';
@@ -41,7 +42,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     SimpleLogger.d('35', 'MainPage build called, currentIndex: $_currentIndex');
-    
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
@@ -56,6 +56,10 @@ class _MainPageState extends State<MainPage> {
             _currentIndex = index;
           });
           SimpleLogger.d('37', 'Current page changed to: ${_titles[index]}');
+          // 在下一帧渲染完成后输出日志
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            SimpleLogger.d('38', 'Frame rendered after setState');
+          });
         },
         items: const [
           BottomNavigationBarItem(
